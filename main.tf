@@ -130,6 +130,16 @@ resource "google_compute_firewall" "ubisoft-hq-vpc-http-rule" {
   source_ranges = ["172.20.50.0/24", "172.31.80.0/24", "192.168.80.0/24"]
   priority = 100
 }
+resource "google_compute_firewall" "ubisoft-hq-vpc-icmp-rule" {
+  project     = "project-stardust-422621"
+  name        = "ubisoft-hq-vpc-firewall-icmp"
+  network     = google_compute_network.ubisoft-hq-vpc.id
+  allow {
+    protocol = "icmp"
+  }
+  source_ranges = ["0.0.0.0/0"]
+  priority = 65534
+}
 
 resource "google_compute_network_peering" "ubi-us-2-eu" {
   name         = "ubi-us-2-eu"
